@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import WorkCard from './work-card'
 import homedash from 'public/work/home-new.webp'
@@ -33,6 +34,9 @@ const item = {
 }
 
 export default function Page() {
+  useEffect(() => {
+    document.title = 'Work | Nin 的小窝'
+  }, [])
   return (
     <section>
       <section className="sm:px-14 sm:pt-6">
@@ -40,7 +44,7 @@ export default function Page() {
           Selected works
         </h1>
         <p className="prose prose-neutral mb-6 text-sm dark:prose-invert">
-          Some projects that might be interesting.
+          一些瞎捣鼓的小玩意儿
         </p>
         <motion.div variants={container} initial="hidden" animate="visible">
           <motion.div variants={item}>

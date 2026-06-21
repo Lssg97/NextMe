@@ -7,7 +7,7 @@ export default function Loading() {
         Selected works
       </h1>
       <div className="prose prose-neutral mb-6 text-sm dark:prose-invert">
-        Some projects that might be interesting.
+        一些瞎捣鼓的小玩意儿
         <Loader visible={true} />
       </div>
     </section>

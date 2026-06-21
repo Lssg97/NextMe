@@ -14,22 +14,22 @@ import {
 
 export const siteUrlList = [
   {
-    name: 'Home',
+    name: '主页',
     url: '/',
     icon: HomeIcon,
   },
   {
-    name: 'Work',
+    name: '项目',
     url: '/work',
     icon: Square2StackIcon,
   },
   {
-    name: 'Blog',
+    name: '博客',
     url: '/blog',
     icon: InboxIcon,
   },
   {
-    name: 'Chat',
+    name: '留言',
     url: '/guestbook',
     icon: SparklesIcon,
   },

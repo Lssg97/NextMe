@@ -1,11 +1,11 @@
 import Image from 'next/image'
 import avatar from 'app/avatar.webp'
+import sax from 'public/main/sax.webp'
+import paw from 'public/main/paw.webp'
+import tube from 'public/main/tube.webp'
 import desktop from 'public/main/desktop.webp'
-import cloth from 'public/main/cloth.webp'
-import shoe from 'public/main/shoe.webp'
-import home from 'public/main/home.webp'
 import Link from 'next/link'
-import { GitHubIcon } from './components/Icon'
+import { QQIcon } from './components/Icon'
 import NowPlayingInit from './components/now-playing'
 
 export default async function Page() {
@@ -13,7 +13,7 @@ export default async function Page() {
     <section>
       <section className="sm:px-28 sm:pt-8">
         <Image
-          alt={'Hamster1963'}
+          alt={'Lssg97'}
           src={avatar}
           height={64}
           width={64}
@@ -23,46 +23,54 @@ export default async function Page() {
           priority
         />
         <h1 className="mb-1 text-xl font-medium tracking-tighter">
-          Hamster1963
+          Nin 的小窝
         </h1>
         <p className="prose prose-neutral text-sm dark:prose-invert">
-          Developer, guitarist, and creator.
+          Blink‘s blog
         </p>
-        <p className={'mb-6 pt-10 text-lg font-medium tracking-tight'}>
-          👋 Hi, I'm Hamster1963.
+        <p className={'mb-6 pt-10 text-md font-medium tracking-tight'}>
+          👋 嘿，我是蓝色闪光
           <br />
-          Love to write code and write articles.
+          一个想要什么都会一点的人。
           <br />
-          I will share some tech related things and my ideas here.
+          这里记录了一些我学到的知识或教程。
           <br />
         </p>
         <NowPlayingInit />
         <div className={'mt-6 flex items-center'}>
-          <Link href="https://github.com/hamster1963" target="_blank">
+          <Link href="tencent://Message/?uin=760265690" target="_blank">
             <button
               className={
                 'mr-4 flex items-center justify-center rounded-xl border-[0.5px] border-neutral-200 p-2 text-xs font-medium shadow-[0_2px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:bg-stone-100 hover:shadow-none dark:border-neutral-700 dark:bg-neutral-700/20 dark:hover:bg-neutral-900/20'
               }
             >
-              <GitHubIcon className="mr-1 h-4" />
-              <p>GitHub</p>
+              <QQIcon className="mr-1 h-3" />
+              <p>QQ</p>
             </button>
           </Link>
           <span className="mr-2 h-2 w-2 rounded-full bg-blue-500"></span>
           <Link
-            href={'https://home.buycoffee.top'}
+            href={'https://github.com/Lssg97'}
             target="_blank"
             className="text-xs font-medium"
           >
-            Monitor
+            Github
           </Link>
           <p className="mx-1 text-xs font-medium">/</p>
           <Link
-            href={'https://changelog.buycoffee.top'}
+            href={'https://nezha.lssg97.xyz'}
             target="_blank"
             className="text-xs font-medium"
           >
-            Changelog
+            Server
+          </Link>
+          <p className="mx-1 text-xs font-medium">/</p>
+          <Link
+            href={'https://www.lssg97.top'}
+            target="_blank"
+            className="text-xs font-medium"
+          >
+            旧版博客
           </Link>
         </div>
       </section>
@@ -72,10 +80,10 @@ export default async function Page() {
 }
 
 function Photos() {
-  const photo_1 = desktop
-  const photo_2 = shoe
-  const photo_3 = cloth
-  const photo_4 = home
+  const photo_1 = sax
+  const photo_2 = paw
+  const photo_3 = tube
+  const photo_4 = desktop
   return (
     <section
       className={

@@ -51,7 +51,6 @@ export default function Page() {
               Rainmeter
             </div>
           </section>
-
           <section className={'flex items-center justify-between'}>
             <div className={'font-md text-neutral-600 dark:text-neutral-400'}>
               插件

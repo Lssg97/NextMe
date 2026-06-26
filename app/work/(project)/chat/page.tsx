@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import ChatOne from 'public/work/chat/chatOne.webp'
 import ChatTwo from 'public/work/chat/chatTwo.webp'
+import ChatThree from 'public/work/chat/3.webp'
 import { BackIcon } from '../../../components/Icon'
 
 export default function Page() {
@@ -11,19 +12,19 @@ export default function Page() {
         <h1 className="mb-2 text-2xl font-medium tracking-tighter transition-opacity hover:opacity-50">
           <Link href="/work" className="flex items-center justify-start">
             <BackIcon />
-            Chat
+            DSECT
           </Link>
         </h1>
         <p className="prose prose-neutral mb-6 text-sm dark:prose-invert">
-          A simple chat page.
+          ECT 100 步进管驱动板
         </p>
-        <p>一个极简的AI对话页面，使用 Next.js 和 TypeScript 开发。</p>
+        <p>本项目（Dekatron Spinner for ECT 100）是一款针对瑞士 Elesta 产双向双脉冲冷阴极十进制步进计数管 ECT 100 的可变速变向旋转驱动板。</p>
         <blockquote className="my-6 border-l-2 pl-2 text-sm">
           <a
-            href="https://github.com/hamster1963/Next-Mini-Chat"
+            href="https://oshwhub.com/lssg97/ect100_drive"
             target={'_blank'}
           >
-            https://github.com/hamster1963/Next-Mini-Chat
+            https://oshwhub.com/lssg97/ect100_drive
           </a>
         </blockquote>
         <div
@@ -39,17 +40,26 @@ export default function Page() {
         >
           <section className={'flex items-center justify-between'}>
             <div className={'font-md text-neutral-600 dark:text-neutral-400'}>
-              Fullstack
+              设计
             </div>
             <div className={'text-md flex items-center'}>
-              <img
-                alt="Next.js logomark"
-                src="/next-logo.svg"
-                className="!mr-1"
-                width="20"
-                height="20"
-              />
-              Next.js
+              <picture>
+                <img
+                  alt="LCEDA logomark"
+                  src="/lceda.svg"
+                  className="!mr-3 dark:hidden"
+                  width="20"
+                  height="20"
+                />
+                <img
+                  alt="LCEDA logomark"
+                  src="/lceda-dark.svg"
+                  className="!mr-3 hidden dark:block"
+                  width="20"
+                  height="20"
+                />
+              </picture>
+              嘉立创 EDA
             </div>
           </section>
         </div>
@@ -57,14 +67,20 @@ export default function Page() {
       <Image
         placeholder="blur"
         className={'mt-10 md:mt-40 md:scale-150'}
-        alt={'Hamster1963'}
+        alt={'Lssg97'}
         src={ChatOne}
       />
       <Image
         placeholder="blur"
-        className={'mt-5 md:mb-56 md:mt-96 md:scale-150'}
-        alt={'Hamster1963'}
+        className={'mt-5 md:mt-72 md:scale-150'}
+        alt={'Lssg97'}
         src={ChatTwo}
+      />
+      <Image
+        placeholder="blur"
+        className={'mt-5 md:mb-24 md:mt-72 md:scale-150'}
+        alt={'Lssg97'}
+        src={ChatThree}
       />
     </section>
   )

@@ -58,8 +58,8 @@ export default function Page() {
           <motion.section className={'grid grid-cols-1 gap-4 sm:grid-cols-2'}>
             <motion.div variants={item}>
               <WorkCard
-                title={'Chat'}
-                description={'Chat with AI.'}
+                title={'DSECT'}
+                description={'ECT 100 步进管驱动板'}
                 image={chat}
                 link={'/work/chat'}
               />
@@ -80,7 +80,6 @@ export default function Page() {
                 link={'/work/letter'}
               />
             </motion.div>
-
             <motion.div variants={item}>
               <WorkCard
                 title={'Dial'}

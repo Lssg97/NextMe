@@ -13,6 +13,8 @@ export default function TypeSwitch() {
 
     if (!isDailyPath) {
       router.prefetch('/blog/daily')
+    } else {
+      router.prefetch('/blog')
     }
   }, [pathname, router])
 
@@ -32,7 +34,7 @@ export default function TypeSwitch() {
         onClick={handleCheckedChange}
         type="button"
         role="switch"
-        aria-checked="false"
+        aria-checked={isChecked}
         data-state={isChecked ? 'checked' : 'unchecked'}
         value="on"
         className="data-[state=unchecked]:hover:after:bg-switch-off-hover-gradient group relative inline-flex h-[16px] w-[28px] items-center rounded-full bg-ui-bg-switch-off outline-none transition-all duration-300 before:absolute before:inset-0 before:rounded-full before:shadow-details-switch-background before:content-[''] after:absolute after:inset-0 after:rounded-full after:content-[''] hover:bg-ui-bg-switch-off-hover focus-visible:shadow-details-switch-background-focus disabled:cursor-not-allowed disabled:!bg-ui-bg-disabled data-[state=checked]:bg-ui-bg-interactive"
@@ -47,7 +49,7 @@ export default function TypeSwitch() {
         className="txt-compact-medium font-sans text-[11px] font-normal"
         htmlFor="daily-switch"
       >
-        thoughts
+        {isChecked ? '杂记' : '博客'}
       </label>
     </div>
   )

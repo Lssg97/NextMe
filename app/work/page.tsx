@@ -44,13 +44,13 @@ export default function Page() {
           Selected works
         </h1>
         <p className="prose prose-neutral mb-6 text-sm dark:prose-invert">
-          一些瞎捣鼓的小玩意儿
+          瞎捣鼓的小玩意儿
         </p>
         <motion.div variants={container} initial="hidden" animate="visible">
           <motion.div variants={item}>
             <WorkCard
-              title={'HomeDash'}
-              description={'A dashboard for home.'}
+              title={'详细系统监控'}
+              description={'一款 Rainmeter 皮肤项目'}
               image={homedash}
               link={'/work/homedash'}
             />

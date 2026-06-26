@@ -6,7 +6,7 @@ import tube from 'public/main/tube.webp'
 import desktop from 'public/main/desktop.webp'
 import Link from 'next/link'
 import { QQIcon } from './components/Icon'
-import NowPlayingInit from './components/now-playing'
+import { TimeWeather } from './components/time-weather'
 
 export default async function Page() {
   return (
@@ -36,7 +36,7 @@ export default async function Page() {
           这里记录了一些我学到的知识或教程。
           <br />
         </p>
-        <NowPlayingInit />
+        <TimeWeather />
         <div className={'mt-6 flex items-center'}>
           <Link href="tencent://Message/?uin=760265690" target="_blank">
             <button

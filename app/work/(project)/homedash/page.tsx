@@ -2,8 +2,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import homedashOne from 'public/work/homedash/1.webp'
 import homedashTwo from 'public/work/homedash/2.webp'
-import homedashThree from 'public/work/homedash/3.webp'
-import homedashFour from 'public/work/homedash/4.webp'
 import { BackIcon } from '../../../components/Icon'
 
 export default function Page() {
@@ -13,20 +11,18 @@ export default function Page() {
         <h1 className="mb-2 text-2xl font-medium tracking-tighter transition-opacity hover:opacity-50">
           <Link href="/work" className="flex items-center justify-start">
             <BackIcon />
-            HomeDash
+            详细系统监控
           </Link>
         </h1>
         <p className="prose prose-neutral mb-6 text-sm dark:prose-invert">
-          A dashboard for home.
+          一款 Rainmeter 皮肤项目
         </p>
         <p>
-          这是一个针对于家庭信息的展示面板，分为四个板块。
-          <br />
-          主要展示家庭内部设备的信息，包括： 网络、智能家居、服务器、科学上网。
+          详细系统监控（Detailed System Monitor）是一款全面直观、高信息密度的，用于监视所在计算机网络、CPU、GPU、内存、硬盘等相关信息的 Rainmeter 皮肤，旨在将这些系统信息清晰明了地展示在你的桌面上。能兼容市面上绝大多数使用 Windows 系统的计算机或工作站，并自动适配系统版本及硬件以只展示可以获取的信息。
         </p>
         <blockquote className="my-6 border-l-2 pl-2 text-sm">
-          <a href="https://dash.buycoffee.top" target={'_blank'}>
-            https://dash.buycoffee.top
+          <a href="https://github.com/Lssg97/DetailedSystemMonitor" target={'_blank'}>
+            https://github.com/Lssg97/DetailedSystemMonitor
           </a>
         </blockquote>
         <div
@@ -42,48 +38,40 @@ export default function Page() {
         >
           <section className={'flex items-center justify-between'}>
             <div className={'font-md text-neutral-600 dark:text-neutral-400'}>
-              Frontend
+              皮肤
             </div>
             <div className={'text-md flex items-center'}>
               <img
-                alt="Next.js logomark"
-                src="/next-logo.svg"
-                className="!mr-1"
+                alt="Rainmeter logomark"
+                src="/rainmeter.svg"
+                className="!mr-3"
                 width="20"
                 height="20"
               />
-              Next.js
+              Rainmeter
             </div>
           </section>
 
           <section className={'flex items-center justify-between'}>
             <div className={'font-md text-neutral-600 dark:text-neutral-400'}>
-              Backend
+              插件
             </div>
             <div className={'text-md flex items-center'}>
               <img
-                alt="Go logomark"
-                src="/golang.svg"
+                alt="C++ logomark"
+                src="/cpp.svg"
                 className="!mr-1"
                 width="20"
                 height="20"
               />
-              Go / Goframe
-            </div>
-          </section>
-          <section className={'flex items-center justify-between'}>
-            <div className={'font-md text-neutral-600 dark:text-neutral-400'}>
-              Database
-            </div>
-            <div className={'text-md flex items-center'}>
               <img
-                alt="mysql logomark"
-                src="/mysql.svg"
-                className="!mr-1"
+                alt="C# logomark"
+                src="/c-sharp.svg"
+                className="!mr-3"
                 width="20"
                 height="20"
               />
-              MySQL
+              C++ / C#
             </div>
           </section>
         </div>
@@ -91,26 +79,14 @@ export default function Page() {
       <Image
         placeholder="blur"
         className={'mt-10 md:mt-40 md:scale-150'}
-        alt={'Hamster1963'}
+        alt={'Lssg97'}
         src={homedashOne}
       />
       <Image
         placeholder="blur"
-        className={'mt-5 md:mt-72 md:scale-150'}
-        alt={'Hamster1963'}
-        src={homedashTwo}
-      />
-      <Image
-        placeholder="blur"
-        className={'mt-5 md:mt-72 md:scale-150'}
-        alt={'Hamster1963'}
-        src={homedashThree}
-      />
-      <Image
-        placeholder="blur"
         className={'mt-5 md:mb-24 md:mt-72 md:scale-150'}
-        alt={'Hamster1963'}
-        src={homedashFour}
+        alt={'Lssg97'}
+        src={homedashTwo}
       />
     </section>
   )

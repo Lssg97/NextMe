@@ -23,7 +23,7 @@ export default function Form() {
 
   const handleSubmit = async () => {
     if (!name || !email || !entry) {
-      alert('Please fill in all fields')
+      alert('信息要填全呦~')
       return
     }
     setDisabled(true)
@@ -63,7 +63,7 @@ export default function Form() {
         <section className="relative grid gap-2 md:grid-cols-2">
           <input
             aria-label="Your name"
-            placeholder="Name"
+            placeholder="网名"
             name="name"
             type="text"
             required
@@ -73,7 +73,7 @@ export default function Form() {
           />
           <input
             aria-label="Your email"
-            placeholder="Email"
+            placeholder="电子邮箱"
             name="email"
             type="text"
             required
@@ -84,7 +84,7 @@ export default function Form() {
         </section>
         <textarea
           aria-label="Your message"
-          placeholder="Message..."
+          placeholder="写下您的留言吧~"
           name="entry"
           required
           value={entry}

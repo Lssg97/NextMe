@@ -28,21 +28,21 @@ export default function TopCommitBar({
       >
         <section className="flex items-center gap-1.5">
           <Disc className="h-4 w-4 flex-shrink-0" />
-          <p className="text-[12.5px] font-medium">Uncommitted comments</p>
+          <p className="text-[12.5px] font-medium">是否提交留言？</p>
         </section>
         <section className="flex items-center gap-1.5">
           <button
             className="rounded-full border-[1px] border-stone-200 bg-transparent px-2 py-1 text-xs font-medium text-black transition-colors hover:bg-stone-100 dark:border-stone-700 dark:text-white dark:hover:bg-stone-700"
             onClick={handleCancel}
           >
-            Cancel
+            否
           </button>
           <button
             disabled={disabled}
             className="rounded-full bg-black px-2 py-1 text-xs font-medium text-white transition-colors hover:bg-stone-700 dark:bg-stone-600"
             onClick={handleSubmit}
           >
-            {loading ? <LoadingSpinner /> : 'Submit'}
+            {loading ? <LoadingSpinner /> : '是'}
           </button>
         </section>
       </motion.div>

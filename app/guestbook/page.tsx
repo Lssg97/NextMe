@@ -3,7 +3,7 @@ import GuestbookEntries from './guestbook-entry'
 
 export const metadata = {
   title: 'Guestbook',
-  description: 'Sign my guestbook and leave your mark.',
+  description: '留下您的宝贵想法吧~',
 }
 
 export default function GuestbookPage() {
@@ -11,7 +11,7 @@ export default function GuestbookPage() {
     <section className="sm:px-14 sm:pt-6">
       <h1 className="mb-2 text-2xl font-medium tracking-tighter">Guestbook</h1>
       <p className="prose prose-neutral mb-2 text-sm dark:prose-invert">
-        Some text about the guestbook.
+        留下您的想法
       </p>
       <GuestbookForm />
       <GuestbookEntries />

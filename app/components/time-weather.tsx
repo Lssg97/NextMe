@@ -93,11 +93,11 @@ export function TimeWeather() {
   }
 
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString('zh-CN', {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric'
-    })
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const weekday = weekdays[date.getDay()];
+    return `${month}月${day}日 ${weekday}`;
   }
 
   const getWeatherInfo = (code: number, isDay: boolean) => {

@@ -1,16 +1,25 @@
+import { BeianIcon } from './components/Icon'
+import { ICPIcon } from './components/Icon'
+
 export default function Footer() {
   return (
     <footer className="pt-20 sm:px-14">
       <section className="flex flex-col">
         <p className="mt-1 flex gap-1 text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50">
-          使用{' '}
+          <BeianIcon className="h-4" />
           <a
-            href="https://github.com/hamster1963/NextMe"
-            className="cursor-pointer font-normal underline decoration-yellow-500 decoration-2 underline-offset-2 dark:decoration-yellow-500/50"
+            href="https://www.beian.gov.cn"
+            className="items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
           >
-            NextMe
+            吉公网安备 XXXXXXXXXXXXXX 号
           </a>
-          {' '}项目搭建
+          <ICPIcon className="ml-2 h-4" />
+          <a
+            href="https://beian.miit.gov.cn"
+            className="items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
+          >
+            吉 ICP 备 XXXXXXXXXX 号 - X
+          </a>
         </p>
         <section className="mt-1 flex items-center gap-1 text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50">
           © 2023-{new Date().getFullYear()}{' '}
@@ -22,6 +31,14 @@ export default function Footer() {
               <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] border-[6px] border-transparent border-t-black"></div>
             </div>
           </div>
+          使用{' '}
+          <a
+            href="https://github.com/hamster1963/NextMe"
+            className="cursor-pointer font-normal underline decoration-yellow-500 decoration-2 underline-offset-2 dark:decoration-yellow-500/50"
+          >
+            NextMe
+          </a>
+          {' '}项目搭建。{' '}
         </section>
       </section>
     </footer>

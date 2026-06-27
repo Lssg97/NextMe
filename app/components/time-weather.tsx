@@ -15,9 +15,9 @@ interface WeatherData {
 
 const WEATHER_CODES: Record<number, { label: string; icon: any }> = {
   0: { label: '晴', icon: Sun },
-  1: { label: '局部多云', icon: CloudSun },
-  2: { label: '多云', icon: Cloud },
-  3: { label: '阴', icon: Cloudy },
+  1: { label: '大部晴朗', icon: CloudSun },
+  2: { label: '局部多云', icon: Cloud },
+  3: { label: '多云', icon: Cloudy },
   45: { label: '雾', icon: CloudFog },
   48: { label: '霜', icon: CloudFog },
   51: { label: '细雨', icon: CloudDrizzle },

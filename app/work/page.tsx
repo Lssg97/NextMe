@@ -3,14 +3,8 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import WorkCard from './work-card'
-import homedash from 'public/work/home-new.webp'
-import boce from 'public/work/boce.webp'
-import order from 'public/work/order.webp'
-import music from 'public/work/music.webp'
-import poc from 'public/work/poc.webp'
-import it from 'public/work/it.webp'
-import letter from 'public/work/letter.webp'
-import chat from 'public/work/chat.webp'
+import dsm from 'public/work/dsm.webp'
+import dsect from 'public/work/dsect.webp'
 
 const container = {
   hidden: { opacity: 1 },
@@ -51,8 +45,8 @@ export default function Page() {
             <WorkCard
               title={'详细系统监控'}
               description={'一款 Rainmeter 皮肤项目'}
-              image={homedash}
-              link={'/work/homedash'}
+              image={dsm}
+              link={'/work/dms'}
             />
           </motion.div>
           <motion.section className={'grid grid-cols-1 gap-4 sm:grid-cols-2'}>
@@ -60,56 +54,8 @@ export default function Page() {
               <WorkCard
                 title={'DSECT'}
                 description={'ECT 100 步进管驱动板'}
-                image={chat}
-                link={'/work/chat'}
-              />
-            </motion.div>
-            <motion.div variants={item}>
-              <WorkCard
-                title={'PoC'}
-                description={'Just a PoC.'}
-                image={poc}
-                link={'/work/poc'}
-              />
-            </motion.div>
-            <motion.div variants={item}>
-              <WorkCard
-                title={'Letter'}
-                description={'Write letters.'}
-                image={letter}
-                link={'/work/letter'}
-              />
-            </motion.div>
-            <motion.div variants={item}>
-              <WorkCard
-                title={'Dial'}
-                description={'A dial test tool.'}
-                image={boce}
-                link={'/work/dial'}
-              />
-            </motion.div>
-            <motion.div variants={item}>
-              <WorkCard
-                title={'Order'}
-                description={'KES order system.'}
-                image={order}
-                link={'/work/order'}
-              />
-            </motion.div>
-            <motion.div variants={item}>
-              <WorkCard
-                title={'Tiny-Music'}
-                description={'A music component.'}
-                image={music}
-                link={'/work/music'}
-              />
-            </motion.div>
-            <motion.div variants={item}>
-              <WorkCard
-                title={'KES-IT'}
-                description={'Network monitoring.'}
-                image={it}
-                link={'/work/it'}
+                image={dsect}
+                link={'/work/dsect'}
               />
             </motion.div>
           </motion.section>

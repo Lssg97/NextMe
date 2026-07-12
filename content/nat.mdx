@@ -1,0 +1,131 @@
+---
+title: '浅谈 NAT 类型与 STUN'
+publishedAt: '2024-05-28'
+summary: 'NAT & STUN'
+image: '/blog-img/nat/cover.webp'
+rssImage: '/blog-img/nat/cover.jpg'
+category: 'Tech'
+ai: '这篇博文主要介绍了 NAT（网络地址转换）及 PAT（端口地址转换）原理，指出了多层 NAT 环境下外网无法主动访问内网的问题；随后重点讲解了通过 STUN 协议检测 NAT 类型的两种标准，其中 RFC 3489 将 NAT 分为全锥型、受限锥型、端口受限锥型和对称型四种，而 RFC 5780 则进一步将映射行为和过滤行为分开，细化为九种类型；最后建议普通用户在多层 NAT 环境中以最严格的 NAT 类型为判断标准，并可使用 NatTypeTester 等工具进行实际检测。'
+---
+
+## NAT 是什么？
+
+　　NAT（Network Address Translator，网络地址转换）是一种在局域网中使用私有地址，而连接互联网时转而使用公网 IP 地址的技术。NAT 实际上是为解决 IPv4 地址短缺而开发的技术。在 IPv4 地址资源已经枯竭，但网络设备越来越多的今天，正是 NAT 技术维持着 IPv4 网络的正常运作。
+
+　　该技术一般是由局域网网关来实现的，最常见的家用路由器就是其中之一。在家庭网络中，每户一般只会分配到一个 IPv4 地址。若想让家中所有电子设备均连接互联网，就需要路由器来建立家庭局域网。电脑或手机这类主机设备连接到路由器后会得到路由器分配的 `192.168` 开头或 `10` 开头的 IPv4 内网私有地址。主机若访问互联网，路由器会将主机发送数据包中的源地址从内网 IP 转换成运营商分配下来的外网 IP 地址。对于运营商来说，无论你在家里用多少设备访问互联网，都如同是同一个设备——路由器在访问互联网。这就是狭义上的 NAT 转换过程。
+
+　　实际上因为 IPv4 地址资源紧缺，运营商分配给家庭的 IPv4 地址大概率也是个私有地址，运营商会通过 NAT 技术将同一个公网 IP 地址分配给一个小区甚至一个社区的家庭共同使用，我们在现实所使用的网络，基本都是一个多层的 NAT 网络。NAT 技术不但解决了 IPv4 地址资源不足的问题，还能有效把主机保护在局域网之内。网络访问只能先由局域网一侧发起，从公网无法主动访问内网主机。
+
+## 更广义的 NAT：PAT
+
+　　刚刚所介绍的 NAT 只是针对 IP 地址的转换。实际上现今的 NAT 技术更多是指端口地址转换（Port Address Translation，PAT）。发生转换的不光有 IP 地址，还有 TCP/IP 协议体系所依赖的端口号。要了解这个，我们先要知道现代网络通讯中，主机端口的意义。
+
+　　诸如手机、电脑这类电子产品只是我们访问互联网所必须的硬件设备，真正帮助我们在网络世界遨游的是各种应用程序。浏览器帮助我们浏览网页，社交软件帮助我们与他人沟通，音乐视频软件帮助我们满足精神娱乐需求……而电脑不会为每个应用都准备一个 IP 地址用于网络通信，因此出现了 TCP/IP 协议。每个联网应用会占用一个到多个主机端口用于通信。
+
+　　可以这样比喻：把电脑接入互联网获得 IP 地址的行为看作住进了一个客栈房间，IP 就是这个房间的地址，而端口就类似于这个房间的房门，电脑上每一个连通网络的进程都会占据一个或多个不同的房门用于收发信息。使用相同传输协议（如 TCP 或 UDP）时，一个已经被某进程占用的端口通常不能再被另一个进程使用。电脑也是利用收发的数据包中包含的端口号来确定其归属于哪个进程。
+
+![Untitled](/blog-img/nat/1716873832790-0.webp)
+
+　　TCP/IP 协议数据包经过 NAT 网关时会进行 PAT 转换，将内网地址转换成公网地址的同时还伴随端口转发（上面提到过，在实际网络中数据包会经过多次路由和 NAT 转换，图示把这些转换过程汇总到一起）。这个过程就好比：住在 A 客栈（路由器网关）101 房间（电脑）里的张三（程序）发送信件，寄出信息写：“101 房 : 张三（局域网 IP : 端口号）”，接收信息写：“京城 : 某度网站（某度服务器地址 : HTTPS 网站服务端口 443）”。然后张三把信件交给了客栈前台。客栈店拿到信件后，把寄出信息改成了：“A 客栈 : 住客 1（公网 IP : 转发的端口号）”，并记录下“住客 1”是住在 101 房间的张三，再把信件交给镖局（下一级路由）。信件经过多个镖局中转（多次路由转发）后被京城的某度网站收到。其回信的寄出信息就写： “京城 : 某度网站”，接收信息会写： “A 客栈 : 住客 1”。信件再经波折送到 A 客栈后，客栈前台会根据之前的记录，把接收信息改成： “101 房 : 张三”，并将信息送到 101 房的张三手里。
+
+![Untitled](/blog-img/nat/1716873832790-1.webp)
+
+　　不难发现，NAT 在两个访问方向上完成两次地址和端口转换，出方向做源信息替换，入方向做目的信息替换，而且 NAT 的存在对通信双方是保持透明的，通信的主机互无感知。
+
+　　NAT 技术大大缓解了 IPv4 地址不够用的问题，并有效保护了内网主机的地址安全。但是这种优势同时也成为其最大的缺点：外网主机无法主动跟局域网内部的主机通信。若想建立连接，必须先由内网主机主动和外网某台主机通信，路由器负责建立端口映射关系，继而实现数据的转发。映射关系建立成功后，外网主机才能借助路由器 IP 主动访问到内网主机上的服务。这对于现今人们能随时随地访问家庭网络设备的需求来说尤为麻烦！
+
+## NAT 类型与检测方法
+
+　　NAT 转换有很多类型。为了探测两台主机之间是否存在 NAT 以及其类型，并找出其中拥有哪些外网 IP 地址和哪些端口被 NAT 转换，以便两台主机进行 P2P 通信。人们提出了 STUN 协议。
+
+### RFC 3489 标准
+
+　　STUN 协议在 2003 年由 [RFC 3489](https://datatracker.ietf.org/doc/html/rfc3489) 标准首次定义。在该定义中，STUN 是指利用 UDP 简单遍历网络地址转换服务器的意思（Simple Traversal of User Datagram Protocol Through Network Address Translators）。 RFC 3489 将 NAT 分为 4 种类型：全锥型 、受限锥型、端口受限锥型和对称型。
+
+- **全锥型 NAT（Full Cone NAT）**：最简单的 NAT 类型。内网主机某程序对某公网主机通信时，路由器将内网主机的 IP 地址和该程序占用的端口号映射到路由器的公网 IP 地址和一个固定的端口号上（转发的端口号不一定和原端口号一致但固定不变，二者属于绑定关系）。NAT 转换建立后，公网上的任何一台主机可以使用任何端口主动与此内网主机上的该程序进行通信。该类型被称为 NAT1（主机拥有公网 IP，通信不经过任何 NAT 转换，只进行路由转发的情况称为 NAT0）。
+
+![Untitled](/blog-img/nat/1716873832790-2.webp)
+
+- **受限锥型 NAT（Restricted Cone NAT）**：又叫地址受限锥型 NAT。顾名思义，该类型在全锥型 NAT 基础上做出了 IP 限制。内网主机某程序对某公网主机通信时，路由器将内网主机的 IP 地址和该程序占用的端口号映射到路由器的公网 IP 地址和一个固定的端口号上。NAT 转换建立后，只有这台被通信过的公网主机可以使用任何端口主动与内网主机上的该程序进行通信，而其他公网主机则无法主动连接到内网主机上。该类型被称为 NAT2。
+
+![Untitled](/blog-img/nat/1716873832790-3.webp)
+
+- **端口受限锥型 NAT（Port Restricted Cone NAT）**：该类型在受限锥型 NAT 基础上又增加了端口限制。内网主机某程序对某公网主机某端口通信时，路由器将内网主机的 IP 地址和该程序占用的端口号映射到路由器的公网 IP 地址和一个固定的端口号上。NAT 转换建立后，只有这台被通信过的公网主机可以使用被连接过的端口主动与内网主机上的该程序进行通信，而该公网主机用其他端口或者其他公网主机则无法主动连接到内网主机上。该类型被称为 NAT3。
+
+![Untitled](/blog-img/nat/1716873832790-4.webp)
+
+- **对称型 NAT（Symmetric NAT）**：这是限制最严格的 NAT 类型。内网主机某程序对某公网主机的不同端口或者不同的公网主机进行通信时，路由器会将内网主机的 IP 地址和该程序占用的端口号映射到路由器的公网 IP 地址和不同的端口号上（路由器若有多个公网 IP 的话还会映射到不同的 IP 上），建立多条映射规则。每进行一次通信，映射的端口号还会发生改变。在这种模式下，外网主机想主动与内网主机通信几乎变成了不可能的事情。该类型被称为 NAT4。
+
+![Untitled](/blog-img/nat/1716873832790-5.webp)
+
+以下是 RFC 3489 中 STUN 使用的算法：
+
+![Untitled](/blog-img/nat/1716873832790-6.webp)
+
+以下是不同 NAT 类型的具体检测流程：
+
+![alt: 无 NAT 与防火墙（开放网络）](/blog-img/nat/1716873832790-7.webp)
+
+![alt: 对称型 UDP 防火墙](/blog-img/nat/1716873832790-8.webp)
+
+![alt: 全锥型](/blog-img/nat/1716873832790-9.webp)
+
+![alt: 对称型](/blog-img/nat/1716873832790-a.webp)
+
+![alt: 受限锥型](/blog-img/nat/1716873832790-b.webp)
+
+![alt: 端口受限锥型](/blog-img/nat/1716873832790-c.webp)
+
+### RFC 5780 标准
+
+　　实际上随着互联网的发展，上述四种 NAT 分类已经不能完全概况现今复杂的网络环境。因此 STUN 协议也经历了两次修订，分别是 2008 年的 [RFC 5389](https://datatracker.ietf.org/doc/html/rfc5389) 标准和 2010 年的 [RFC 5780](https://datatracker.ietf.org/doc/html/rfc5780) 标准（试行）。在 RFC 5389 中，STUN 的含义被修改为：NAT 会话遍历实用程序（Session Traversal Utilities for NAT）。
+
+　　早在 IETF (RFC 4787) 中就把 NAT 的过程划分为三种映射行为（Mapping Behavior）和三种过滤行为（Filtering Behavior）。在最新的 RFC 5780 中，修改了 STUN 的算法，对 NAT 的映射行为和过滤行为分别进行检测，并基于不同的映射行为和过滤行为，将 NAT 重新划分为 9 种类型。
+
+　　下图是 RFC 5780 中的 9 种 NAT 类型和 RFC 3489 中的四种 NAT 类型的对应关系：
+
+![Untitled](/blog-img/nat/1716873832790-d.webp)
+
+![Untitled](/blog-img/nat/1716873832790-e.webp)
+
+![Untitled](/blog-img/nat/1716873832790-f.webp)
+
+![Untitled](/blog-img/nat/1716873832790-g.webp)
+
+![Untitled](/blog-img/nat/1716873832790-h.webp)
+
+在新的标准中，STUN 的算法改为分别检测 NAT 映射行为和过滤行为：
+
+![alt: 映射行为算法](/blog-img/nat/1716873832790-i.webp)
+
+![alt: 过滤行为算法](/blog-img/nat/1716873832790-j.webp)
+
+　　NAT 的映射行为和过滤行为各自分为三种类型：端点无关型（Endpoint-Independent）、地址相关型（Address-Dependent）和地址端口相关型（Address and Port-Dependent）。有一点需要注意的是：STUN 服务器不允许使用 TCP 作为传输协议。因此虽然理论上可行，但是检测软件不会使用 TCP。
+
+![alt: 无 NAT 行为](/blog-img/nat/1716873832790-k.webp)
+
+![alt: 端点无关型映射（EIM）](/blog-img/nat/1716873832790-l.webp)
+
+![alt: 端点无关型过滤（EIF）](/blog-img/nat/1716873832790-m.webp)
+
+![alt: 地址相关型映射（ADM）](/blog-img/nat/1716873832790-n.webp)
+
+![alt: 地址相关型过滤（ADF）](/blog-img/nat/1716873832790-o.webp)
+
+![alt: 地址端口相关型映射（APDM）](/blog-img/nat/1716873832790-p.webp)
+
+![alt: 地址端口相关型过滤（APDF）](/blog-img/nat/1716873832790-q.webp)
+
+　　以上就是 NAT 网络的主要工作方式。对于普通家庭用户来说，多层 NAT 中应该以最为严格的 NAT 类型来判断整体网络环境。若有外网访问内网主机的需求，就需要对家庭网络的 NAT 类型做全面的检测和了解。可以利用 [NatTypeTester](https://github.com/HMBSbige/NatTypeTester) 软件进行检测。
+
+## 参考资料
+
+1. [什么是 NAT？](https://zhuanlan.zhihu.com/p/340698491)
+2. [NAT 是什么？它的工作原理是什么？](https://blog.csdn.net/m0_73995538/article/details/131236323)
+3. [TCP/IP 相关协议及其应用](https://d.wanfangdata.com.cn/periodical/txsj201901017)
+4. [RFC Editor](https://www.rfc-editor.org/info/rfc3489)
+5. [NAT Behavior Discovery Using Classic STUN (RFC 3489)](https://www.netmanias.com/en/post/techdocs/6066)
+6. [STUN (RFC 3489) vs. STUN (RFC 5389/5780)](https://www.netmanias.com/en/post/techdocs/6065)
+7. [NAT Behavior Discovery Using STUN (RFC 5780)](https://www.netmanias.com/en/post/techdocs/6067)
+8. [NAT 穿透的工作原理](https://zhuanlan.zhihu.com/p/510428478)
+9. [NatTypeTester](https://github.com/HMBSbige/NatTypeTester)

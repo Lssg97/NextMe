@@ -10,6 +10,7 @@ import {
   InboxIcon,
   SparklesIcon,
   Square2StackIcon,
+  UserIcon,
 } from '@heroicons/react/20/solid'
 
 export const siteUrlList = [
@@ -29,9 +30,9 @@ export const siteUrlList = [
     icon: InboxIcon,
   },
   {
-    name: '留言',
-    url: '/guestbook',
-    icon: SparklesIcon,
+    name: '关于',
+    url: '/about',
+    icon: UserIcon,
   },
 ]
 

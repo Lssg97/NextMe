@@ -62,6 +62,30 @@ export default function Page() {
               嘉立创 EDA
             </div>
           </section>
+          <section className={'flex items-center justify-between'}>
+            <div className={'font-md text-neutral-600 dark:text-neutral-400'}>
+              印制
+            </div>
+            <div className={'text-md flex items-center'}>
+              <picture>
+                <img
+                  alt="JLC logomark"
+                  src="/jlc.svg"
+                  className="!mr-3 dark:hidden"
+                  width="20"
+                  height="20"
+                />
+                <img
+                  alt="JLC logomark"
+                  src="/jlc-dark.svg"
+                  className="!mr-3 hidden dark:block"
+                  width="20"
+                  height="20"
+                />
+              </picture>
+              嘉立创
+            </div>
+          </section>
         </div>
       </section>
       <Image

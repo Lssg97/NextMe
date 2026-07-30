@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import WorkCard from './work-card'
 import dsm from 'public/work/dsm.webp'
 import dsect from 'public/work/dsect.webp'
+import espdgm from 'public/work/espdgm.webp'
 
 const container = {
   hidden: { opacity: 1 },
@@ -56,6 +57,14 @@ export default function Page() {
                 description={'ECT 100 步进管驱动板'}
                 image={dsect}
                 link={'/work/dsect'}
+              />
+            </motion.div>
+            <motion.div variants={item}>
+              <WorkCard
+                title={'ESPHome Divergence Meter'}
+                description={'一切都是命运石之门的选择'}
+                image={espdgm}
+                link={'/work/espdgm'}
               />
             </motion.div>
           </motion.section>

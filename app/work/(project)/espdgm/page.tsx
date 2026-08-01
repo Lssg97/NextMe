@@ -24,8 +24,8 @@ export default function Page() {
           大佬的坚持和付出！
         </p>
         <blockquote className="my-6 border-l-2 pl-2 text-sm">
-          <a href="https://github.com/Lssg97" target={'_blank'}>
-            https://github.com/Lssg97
+          <a href="https://github.com/Lssg97/ESPWorks/tree/main/Works/divergence_meter" target={'_blank'}>
+            https://github.com/Lssg97/ESPWorks
           </a>
         </blockquote>
         <div

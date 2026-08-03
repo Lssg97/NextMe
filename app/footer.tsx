@@ -9,12 +9,12 @@ export default function Footer() {
           <span className="flex items-center gap-1 w-full sm:w-auto">
             <BeianIcon className="h-4 flex-shrink-0" />
             <a
-              href="https://www.beian.gov.cn"
+              href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=22021102000308"
               target="_blank"
               rel="noopener noreferrer"
               className="mr-3 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
             >
-              吉公网安备 XXXXXXXXXXXXXX 号
+              吉公网安备 22021102000308 号
             </a>
           </span>
           <span className="flex items-center gap-1 w-full sm:w-auto">
@@ -25,7 +25,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
             >
-              吉 ICP 备 XXXXXXXXXX 号 - X
+              吉 ICP 备 2023002947 号 - 1
             </a>
           </span>
         </div>

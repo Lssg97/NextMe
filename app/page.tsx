@@ -64,14 +64,6 @@ export default async function Page() {
           >
             Server
           </Link>
-          <p className="mx-1 text-xs font-medium">/</p>
-          <Link
-            href={'https://www.lssg97.top'}
-            target="_blank"
-            className="text-xs font-medium"
-          >
-            旧版博客
-          </Link>
         </div>
       </section>
       <Photos />

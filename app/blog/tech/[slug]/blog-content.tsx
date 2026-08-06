@@ -83,7 +83,7 @@ export default async function BlogContent({ slug }) {
             viewTransitionName: post.metadata.title,
           }}
           href={'/blog'}
-          className="flex items-center justify-start"
+          className="gap-1 flex items-center justify-start"
         >
           <BackIcon />
           {post.metadata.title}

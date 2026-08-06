@@ -14,7 +14,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="mr-3 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
             >
-              吉公网安备 22021102000308 号
+              吉公网安备22021102000308号
             </a>
           </span>
           <span className="flex items-center gap-1 w-full sm:w-auto">
@@ -25,7 +25,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
             >
-              吉 ICP 备 2023002947 号 - 1
+              吉ICP备2023002947号-1
             </a>
           </span>
         </div>

@@ -10,7 +10,7 @@ export default function Page() {
     <section>
       <section className="sm:px-28 sm:pt-12">
         <h1 className="mb-2 text-2xl font-medium tracking-tighter transition-opacity hover:opacity-50">
-          <Link href="/work" className="flex items-center justify-start">
+          <Link href="/work" className="gap-1 flex items-center justify-start">
             <BackIcon />
             DSECT
           </Link>

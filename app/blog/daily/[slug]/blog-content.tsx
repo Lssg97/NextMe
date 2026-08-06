@@ -40,7 +40,7 @@ export default async function DailyContent({ slug }) {
         }}
       />
       <h1 className="mb-2 text-2xl font-medium tracking-tighter transition-opacity hover:opacity-50">
-        <Link href={'/blog/daily'} className="flex items-center justify-start">
+        <Link href={'/blog/daily'} className="gap-1 flex items-center justify-start">
           <BackIcon />
           {post.metadata.title}
         </Link>

@@ -38,7 +38,7 @@ export default async function Page() {
         </p>
         <TimeWeather />
         <div className={'mt-6 flex items-center'}>
-          <Link href="tencent://Message/?uin=760265690" target="_blank">
+          <Link href="mqqapi://im/chat?chat_type=wpa&uin=760265690&version=1&src_type=web&web_src=lssg97.top" target="_blank">
             <button
               className={
                 'mr-4 flex items-center justify-center rounded-xl border-[0.5px] border-neutral-200 p-2 text-xs font-medium shadow-[0_2px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:bg-stone-100 hover:shadow-none dark:border-neutral-700 dark:bg-neutral-700/20 dark:hover:bg-neutral-900/20'
@@ -76,94 +76,56 @@ function Photos() {
   const photo_2 = paw
   const photo_3 = tube
   const photo_4 = desktop
+  const cards = [
+    { src: photo_1, leftCenter: 17.75, topCenter: 48.913, rotate: -4, alt: 'photo_1' },
+    { src: photo_2, leftCenter: 40, topCenter: 58, rotate: 1, alt: 'photo_2' },
+    { src: photo_3, leftCenter: 64, topCenter: 38, rotate: 0, alt: 'photo_3' },
+    { src: photo_4, leftCenter: 83, topCenter: 55, rotate: -2, alt: 'photo_4' },
+  ]
+  const cardWidthPercent = 218 / 800 * 100
+  const cardHeightPercent = 276 / 460 * 100
+  const halfWidthPercent = cardWidthPercent / 2
+  const halfHeightPercent = cardHeightPercent / 2
   return (
-    <section
-      className={
-        '-mx-6 overflow-scroll sm:mx-0 sm:flex sm:flex-row sm:justify-center md:overflow-visible'
-      }
-    >
-      <section className={'relative h-[460px] w-[800px]'}>
-        <div
-          style={{
-            transform:
-              'perspective(1200px) translateX(0px) translateY(0px) scale(1) rotate(-4deg) rotateX(0deg) rotateY(0deg) skewX(0deg) skewY(0deg) translateZ(0px)',
-            position: 'absolute',
-            left: 'calc(17.75% - 109px)',
-            top: 'calc(48.913% - 138px)',
-          }}
-          className={
-            'transform-none-on-hover h-[276px] w-[218px] cursor-pointer rounded-lg border-[8px] border-white shadow-md transition-all duration-300 hover:shadow-xl'
-          }
-        >
-          <Image
-            alt={'photo_1'}
-            src={photo_1}
-            placeholder="blur"
-            fill
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </div>
-        <div
-          style={{
-            transform:
-              'perspective(1200px) translateX(0px) translateY(0px) scale(1) rotate(1deg) rotateX(0deg) rotateY(0deg) skewX(0deg) skewY(0deg) translateZ(0px)',
-            position: 'absolute',
-            left: 'calc(40% - 109px)',
-            top: 'calc(58% - 138px)',
-          }}
-          className={
-            'transform-none-on-hover h-[276px] w-[218px] cursor-pointer rounded-lg border-[8px] border-white shadow-md transition-all duration-300 hover:shadow-xl'
-          }
-        >
-          <Image
-            alt={'photo_2'}
-            src={photo_2}
-            placeholder="blur"
-            fill
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </div>
-        <div
-          style={{
-            transform:
-              'perspective(1200px) translateX(0px) translateY(0px) scale(1) rotate(0deg) rotateX(0deg) rotateY(0deg) skewX(0deg) skewY(0deg) translateZ(0px)',
-            position: 'absolute',
-            left: 'calc(64% - 109px)',
-            top: 'calc(38% - 138px)',
-          }}
-          className={
-            'transform-none-on-hover h-[276px] w-[218px] cursor-pointer rounded-lg border-[8px] border-white shadow-md transition-all duration-300 hover:shadow-xl'
-          }
-        >
-          <Image
-            alt={'photo_3'}
-            src={photo_3}
-            placeholder="blur"
-            fill
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </div>
-        <div
-          style={{
-            transform:
-              'perspective(1200px) translateX(0px) translateY(0px) scale(1) rotate(-2deg) rotateX(0deg) rotateY(0deg) skewX(0deg) skewY(0deg) translateZ(0px)',
-            position: 'absolute',
-            left: 'calc(83% - 109px)',
-            top: 'calc(55% - 138px)',
-          }}
-          className={
-            'transform-none-on-hover h-[276px] w-[218px] cursor-pointer rounded-lg border-[8px] border-white shadow-md transition-all duration-300 hover:shadow-xl'
-          }
-        >
-          <Image
-            alt={'photo_4'}
-            src={photo_4}
-            placeholder="blur"
-            fill
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </div>
-      </section>
+    <section className="w-full overflow-hidden">
+      <div
+        className="relative mx-auto w-full max-w-[800px]"
+        style={{
+          aspectRatio: '800/460',
+          containerType: 'inline-size',
+        }}
+      >
+        {cards.map((card, idx) => {
+          const left = card.leftCenter - halfWidthPercent
+          const top = card.topCenter - halfHeightPercent
+          return (
+            <div
+              key={idx}
+              style={{
+                position: 'absolute',
+                left: `${left}%`,
+                top: `${top}%`,
+                width: `${cardWidthPercent}%`,
+                height: `${cardHeightPercent}%`,
+                transform: `perspective(1200px) translateX(0px) translateY(0px) scale(1) rotate(${card.rotate}deg) translateZ(0px)`,
+                borderWidth: '1cqw',
+                borderRadius: '1cqw',
+                borderStyle: 'solid',
+                borderColor: 'white',
+              }}
+              className="transform-none-on-hover cursor-pointer shadow-md transition-all duration-300 hover:shadow-xl"
+            >
+              <Image
+                alt={card.alt}
+                src={card.src}
+                placeholder="blur"
+                fill
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
+          )
+        })}
+      </div>
     </section>
   )
 }
